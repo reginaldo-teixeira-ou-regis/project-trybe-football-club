@@ -1,9 +1,9 @@
 import { Model, INTEGER, BOOLEAN } from 'sequelize';
-import MatcheCreateAtributes from '../../interfaces/MatcheCreateAtributes';
+import MatchCreateAtributes from '../../interfaces/MatchCreateAtributes';
 import db from '.';
 import Team from './TeamModel';
 
-export interface MatcheAtributes {
+export interface MatchAtributes {
   id: number;
   homeTeamId: number;
   homeTeamGoals: number;
@@ -12,7 +12,7 @@ export interface MatcheAtributes {
   inProgress: boolean;
 }
 
-class Matche extends Model<MatcheAtributes, MatcheCreateAtributes> {
+class Match extends Model<MatchAtributes, MatchCreateAtributes> {
   declare id: number;
   declare homeTeamId: number;
   declare homeTeamGoals: number;
@@ -21,7 +21,7 @@ class Matche extends Model<MatcheAtributes, MatcheCreateAtributes> {
   declare inProgress: boolean;
 }
 
-Matche.init({
+Match.init({
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -60,10 +60,10 @@ Matche.init({
   underscored: true,
 });
 
-Matche.belongsTo(Team, { foreignKey: 'homeTeamId', as: 'homeTeam' });
-Matche.belongsTo(Team, { foreignKey: 'awayTeamId', as: 'awayTeam' });
+Match.belongsTo(Team, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Match.belongsTo(Team, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
-Team.hasMany(Matche, { foreignKey: 'homeTeamId', as: 'homeMatche' });
-Team.hasMany(Matche, { foreignKey: 'awayTeamId', as: 'awayMatche' });
+Team.hasMany(Match, { foreignKey: 'homeTeamId', as: 'homeMatch' });
+Team.hasMany(Match, { foreignKey: 'awayTeamId', as: 'awayMatch' });
 
-export default Matche;
+export default Match;

@@ -7,7 +7,11 @@ export type AuthenticatedRequest = Request & {
   }
 };
 
-async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+async function authMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const token = req.headers.authorization;
 
   if (!token) {
@@ -21,7 +25,8 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     };
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'Token must be a valid token' });
+    return res.status(401)
+      .json({ message: 'Token must be a valid token' });
   }
 }
 

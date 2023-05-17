@@ -1,4 +1,4 @@
-export default interface MatcheCreateAtributes {
+export default interface MatchCreateAtributes {
   homeTeamId: number;
   homeTeamGoals: number;
   awayTeamId: number;

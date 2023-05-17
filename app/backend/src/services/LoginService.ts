@@ -16,7 +16,9 @@ export default class LoginService {
     return jwtConfig.sign({ email, password });
   }
 
-  public static async loginRole(email: string): Promise<string | { message: string }> {
+  public static async loginRole(
+    email: string,
+  ): Promise<string | { message: string }> {
     const userExist = await UserModel.findOne({ where: { email } });
     if (userExist) {
       return userExist.role;
