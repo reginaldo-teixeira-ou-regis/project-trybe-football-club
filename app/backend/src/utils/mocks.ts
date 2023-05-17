@@ -67,39 +67,39 @@ const mockMatchesInProgress = {
   },
 } as MatchReturnAtributes;
 
-// const mockMatchesLeaderboard = [{
-//   id: 1,
-//   homeTeamId: 1,
-//   homeTeamGoals: 5,
-//   awayTeamId: 8,
-//   awayTeamGoals: 1,
-//   inProgress: false,
-// }];
+const mockMatchesLeaderboard = [{
+  id: 1,
+  homeTeamId: 1,
+  homeTeamGoals: 5,
+  awayTeamId: 8,
+  awayTeamGoals: 1,
+  inProgress: false,
+}];
 
-// const mockMatchesLeaderboardAway = [{
-//   id: 1,
-//   homeTeamId: 8,
-//   homeTeamGoals: 5,
-//   awayTeamId: 1,
-//   awayTeamGoals: 1,
-//   inProgress: false,
-// }];
+const mockMatchesLeaderboardAway = [{
+  id: 1,
+  homeTeamId: 8,
+  homeTeamGoals: 5,
+  awayTeamId: 1,
+  awayTeamGoals: 1,
+  inProgress: false,
+}];
 
-// const teamMock = [
-//   {
-//     id: 1,
-//     teamName: 'Avaí/Kindermann',
-//   },
-// ];
+const teamMock = [
+  {
+    id: 1,
+    teamName: 'Avaí/Kindermann',
+  },
+];
 
 export default {
   mockMatches,
   mockMatchesInProgress,
   wrongMockMatches,
   notExistMockMatches,
-  // teamMock,
-  // mockMatchesLeaderboard,
-  // mockMatchesLeaderboardAway,
+  teamMock,
+  mockMatchesLeaderboard,
+  mockMatchesLeaderboardAway,
 };
 
 export {
