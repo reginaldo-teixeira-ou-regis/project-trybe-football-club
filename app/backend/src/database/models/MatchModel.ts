@@ -1,9 +1,9 @@
 import { Model, INTEGER, BOOLEAN } from 'sequelize';
-import MatchCreateAtributes from '../../interfaces/MatchCreateAtributes';
+import MatchCreateAttributes from '../../interfaces/MatchCreateAttributes';
 import db from '.';
 import Team from './TeamModel';
 
-export interface MatchAtributes {
+export interface MatchAttributes {
   id: number;
   homeTeamId: number;
   homeTeamGoals: number;
@@ -12,7 +12,7 @@ export interface MatchAtributes {
   inProgress: boolean;
 }
 
-class Match extends Model<MatchAtributes, MatchCreateAtributes> {
+class Match extends Model<MatchAttributes, MatchCreateAttributes> {
   declare id: number;
   declare homeTeamId: number;
   declare homeTeamGoals: number;

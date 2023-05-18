@@ -1,12 +1,12 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
 
-export interface TeamAtributes {
+export interface TeamAttributes {
   id: number,
   teamName: string,
 }
 
-class Team extends Model<TeamAtributes> {
+class Team extends Model<TeamAttributes> {
   declare id: number;
   declare teamName: string;
 }

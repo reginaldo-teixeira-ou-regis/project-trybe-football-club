@@ -1,4 +1,4 @@
-import { MatchAtributes } from '../database/models/MatchModel';
+import { MatchAttributes } from '../database/models/MatchModel';
 import LeaderBoardInterface from '../interfaces/LeaderboardInterface';
 import MatchService from './MatchService';
 import TeamService from './TeamService';
@@ -28,9 +28,9 @@ export default class LeaderboardService {
 
   public static async filterAndReduce(value: LeaderBoardInterface[]) {
     const Teams = await TeamService.getAll();
-    const result = Teams.map((el) => {
-      const teamArray = value.filter((t) => t.name === el.teamName);
-      return { name: el.teamName,
+    const result = Teams.map((teamMap) => {
+      const teamArray = value.filter((teamFilter) => teamFilter.name === teamMap.teamName);
+      return { name: teamMap.teamName,
         totalPoints: teamArray[0].totalPoints + teamArray[1].totalPoints,
         totalGames: teamArray[0].totalGames + teamArray[1].totalGames,
         totalVictories: teamArray[0].totalVictories + teamArray[1].totalVictories,
@@ -47,105 +47,105 @@ export default class LeaderboardService {
     return sortedResult;
   }
 
-  public static getTotalHomePoints(matches: MatchAtributes[]) {
-    const result = matches.reduce((acc, el) => {
-      if (el.homeTeamGoals < el.awayTeamGoals) {
-        return acc;
+  public static getTotalHomePoints(matches: MatchAttributes[]) {
+    const totalHomePoints = matches.reduce((addPoints, goals) => {
+      if (goals.homeTeamGoals < goals.awayTeamGoals) {
+        return addPoints;
       }
-      if (el.homeTeamGoals > el.awayTeamGoals) {
-        const points = acc + 3;
-        return points;
+      if (goals.homeTeamGoals > goals.awayTeamGoals) {
+        const pointsAdded = addPoints + 3;
+        return pointsAdded;
       }
-      return acc + 1;
+      return addPoints + 1;
     }, 0);
-    return result;
+    return totalHomePoints;
   }
 
-  public static getTotalAwayPoints(matches: MatchAtributes[]) {
-    const result = matches.reduce((acc, el) => {
-      if (el.awayTeamGoals < el.homeTeamGoals) {
-        return acc;
+  public static getTotalAwayPoints(matches: MatchAttributes[]) {
+    const totalAwayPoints = matches.reduce((addPoints, goals) => {
+      if (goals.awayTeamGoals < goals.homeTeamGoals) {
+        return addPoints;
       }
-      if (el.awayTeamGoals > el.homeTeamGoals) {
-        const points = acc + 3;
-        return points;
+      if (goals.awayTeamGoals > goals.homeTeamGoals) {
+        const pointsAdded = addPoints + 3;
+        return pointsAdded;
       }
-      return acc + 1;
+      return addPoints + 1;
     }, 0);
-    return result;
+    return totalAwayPoints;
   }
 
   public static getTotalVictories(
-    matches: MatchAtributes[],
+    matches: MatchAttributes[],
     someTeam: string,
   ) {
     if (someTeam === 'home') {
-      const result = matches.reduce((acc, el) => (
-        el.homeTeamGoals > el.awayTeamGoals ? acc + 1 : acc), 0);
-      return result;
+      const victoriesAdded = matches.reduce((addVictories, goals) => (
+        goals.homeTeamGoals > goals.awayTeamGoals ? addVictories + 1 : addVictories), 0);
+      return victoriesAdded;
     }
-    const result = matches.reduce((acc, el) => (
-      el.awayTeamGoals > el.homeTeamGoals ? acc + 1 : acc), 0);
-    return result;
+    const victoriesAdded = matches.reduce((addVictories, goals) => (
+      goals.awayTeamGoals > goals.homeTeamGoals ? addVictories + 1 : addVictories), 0);
+    return victoriesAdded;
   }
 
   public static getTotalDraws(
-    matches: MatchAtributes[],
+    matches: MatchAttributes[],
     someTeam: string,
   ) {
     if (someTeam === 'home') {
-      const result = matches.reduce((acc, el) => (
-        el.homeTeamGoals === el.awayTeamGoals ? acc + 1 : acc + 0), 0);
-      return result;
+      const drawsAdded = matches.reduce((addDraws, goals) => (
+        goals.homeTeamGoals === goals.awayTeamGoals ? addDraws + 1 : addDraws + 0), 0);
+      return drawsAdded;
     }
-    const result = matches.reduce((acc, el) => (
-      el.awayTeamGoals === el.homeTeamGoals ? acc + 1 : acc + 0), 0);
-    return result;
+    const drawsAdded = matches.reduce((addDraws, goals) => (
+      goals.awayTeamGoals === goals.homeTeamGoals ? addDraws + 1 : addDraws + 0), 0);
+    return drawsAdded;
   }
 
-  public static getTotalLosses(matches: MatchAtributes[], someTeam: string) {
+  public static getTotalLosses(matches: MatchAttributes[], someTeam: string) {
     if (someTeam === 'home') {
-      const result = matches.reduce((acc, el) => (
-        el.homeTeamGoals < el.awayTeamGoals ? acc + 1 : acc + 0), 0);
-      return result;
+      const lossesAdded = matches.reduce((addLosses, goals) => (
+        goals.homeTeamGoals < goals.awayTeamGoals ? addLosses + 1 : addLosses + 0), 0);
+      return lossesAdded;
     }
-    const result = matches.reduce((acc, el) => (
-      el.awayTeamGoals < el.homeTeamGoals ? acc + 1 : acc + 0), 0);
-    return result;
+    const lossesAdded = matches.reduce((addLosses, goals) => (
+      goals.awayTeamGoals < goals.homeTeamGoals ? addLosses + 1 : addLosses + 0), 0);
+    return lossesAdded;
   }
 
-  public static getGoalsFavor(matches: MatchAtributes[], someTeam: string) {
+  public static getGoalsFavor(matches: MatchAttributes[], someTeam: string) {
     if (someTeam === 'home') {
-      const result = matches.reduce((acc, el) => acc + el.homeTeamGoals, 0);
-      return result;
+      const goalsAdded = matches.reduce((addGoals, goals) => addGoals + goals.homeTeamGoals, 0);
+      return goalsAdded;
     }
-    const result = matches.reduce((acc, el) => acc + el.awayTeamGoals, 0);
-    return result;
+    const goalsAdded = matches.reduce((addGoals, goals) => addGoals + goals.awayTeamGoals, 0);
+    return goalsAdded;
   }
 
-  public static getGoalsOwn(matches: MatchAtributes[], someTeam: string) {
+  public static getGoalsOwn(matches: MatchAttributes[], someTeam: string) {
     if (someTeam === 'home') {
-      const result = matches.reduce((acc, el) => (acc + el.awayTeamGoals), 0);
-      return result;
+      const goalsAdded = matches.reduce((addGoals, goals) => (addGoals + goals.awayTeamGoals), 0);
+      return goalsAdded;
     }
-    const result = matches.reduce((acc, el) => (acc + el.homeTeamGoals), 0);
-    return result;
+    const goalsAdded = matches.reduce((addGoals, goals) => (addGoals + goals.homeTeamGoals), 0);
+    return goalsAdded;
   }
 
-  public static getGoalsBalance(matches: MatchAtributes[], someTeam: string) {
+  public static getGoalsBalance(matches: MatchAttributes[], someTeam: string) {
     if (someTeam === 'home') {
-      const result = matches.reduce((acc, el) => acc + (
-        el.homeTeamGoals - el.awayTeamGoals
+      const goalsBalanceAdded = matches.reduce((addGoalsBalance, goals) => addGoalsBalance + (
+        goals.homeTeamGoals - goals.awayTeamGoals
       ), 0);
-      return result;
+      return goalsBalanceAdded;
     }
-    const result = matches.reduce((acc, el) => acc + (
-      el.awayTeamGoals - el.homeTeamGoals
+    const goalsBalanceAdded = matches.reduce((addGoalsBalance, goals) => addGoalsBalance + (
+      goals.awayTeamGoals - goals.homeTeamGoals
     ), 0);
-    return result;
+    return goalsBalanceAdded;
   }
 
-  public static getEfficiency(matches: MatchAtributes[], someTeam: string) {
+  public static getEfficiency(matches: MatchAttributes[], someTeam: string) {
     let totalPoints;
     if (someTeam === 'home') {
       totalPoints = this.getTotalHomePoints(matches);
@@ -158,9 +158,9 @@ export default class LeaderboardService {
   }
 
   public static async sort(someTeam: string | LeaderBoardInterface[]) {
-    const m = typeof someTeam === 'string' ? await this.getAll(someTeam)
-      : someTeam;
-    m.sort((b, a) => {
+    const classificationOrderly = typeof someTeam === 'string'
+      ? await this.getAll(someTeam) : someTeam;
+    classificationOrderly.sort((b, a) => {
       if (a.totalPoints === b.totalPoints) {
         if (a.totalVictories === b.totalVictories) {
           if (a.goalsBalance === b.goalsBalance) {
@@ -171,6 +171,6 @@ export default class LeaderboardService {
         return a.totalVictories - b.totalVictories;
       }
       return a.totalPoints - b.totalPoints;
-    }); return m;
+    }); return classificationOrderly;
   }
 }

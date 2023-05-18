@@ -1,12 +1,12 @@
 import Team from '../database/models/TeamModel';
-import MatchModel, { MatchAtributes } from '../database/models/MatchModel';
-import MatchCreateAtributes from '../interfaces/MatchCreateAtributes';
+import MatchModel, { MatchAttributes } from '../database/models/MatchModel';
+import MatchCreateAttributes from '../interfaces/MatchCreateAttributes';
 import TeamService from './TeamService';
 
 export default class MatchService {
   public static async getAllInProgress(
     inProgress: string | undefined,
-  ): Promise<MatchAtributes[]> {
+  ): Promise<MatchAttributes[]> {
     const allMatches = await MatchModel.findAll({
       where: { inProgress: inProgress === 'true' },
       include: [{
@@ -19,7 +19,7 @@ export default class MatchService {
     return allMatches;
   }
 
-  public static async getAll(): Promise<MatchAtributes[]> {
+  public static async getAll(): Promise<MatchAttributes[]> {
     const allMatches = await MatchModel.findAll({
       include: [{
         model: Team,
@@ -33,7 +33,7 @@ export default class MatchService {
 
   public static async getHomeTimeById(
     id: number,
-  ): Promise<MatchAtributes[]> {
+  ): Promise<MatchAttributes[]> {
     const allMatches = await MatchModel.findAll({
       where: { homeTeamId: id, inProgress: false },
       include: [{
@@ -48,7 +48,7 @@ export default class MatchService {
 
   public static async getAwayTimeById(
     id: number,
-  ): Promise<MatchAtributes[]> {
+  ): Promise<MatchAttributes[]> {
     const allMatches = await MatchModel.findAll({
       where: { awayTeamId: id, inProgress: false },
       include: [{
@@ -78,8 +78,8 @@ export default class MatchService {
   }
 
   public static async create(
-    match: MatchCreateAtributes,
-  ): Promise<MatchAtributes | string > {
+    match: MatchCreateAttributes,
+  ): Promise<MatchAttributes | string > {
     const validation = await this.validation(match);
     if (validation.message !== 'true') {
       return validation.message;
@@ -91,7 +91,7 @@ export default class MatchService {
   }
 
   public static async validation(
-    match: MatchCreateAtributes,
+    match: MatchCreateAttributes,
   ): Promise<{ message: string }> {
     if (match.homeTeamId === match.awayTeamId) {
       return {

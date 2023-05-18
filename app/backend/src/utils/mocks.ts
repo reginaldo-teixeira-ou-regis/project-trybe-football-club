@@ -1,4 +1,4 @@
-interface MatchReturnAtributes {
+interface MatchReturnAttributes {
   id: number;
   homeTeamId: number;
   homeTeamGoals: number;
@@ -20,7 +20,7 @@ const mockMatches = {
   awayTeam: {
     teamName: 'Grêmio',
   },
-} as MatchReturnAtributes;
+} as MatchReturnAttributes;
 
 const wrongMockMatches = {
   id: 1,
@@ -35,7 +35,7 @@ const wrongMockMatches = {
   awayTeam: {
     teamName: 'Grêmio',
   },
-} as MatchReturnAtributes;
+} as MatchReturnAttributes;
 
 const notExistMockMatches = {
   id: 1,
@@ -50,7 +50,7 @@ const notExistMockMatches = {
   awayTeam: {
     teamName: 'Grêmio',
   },
-} as MatchReturnAtributes;
+} as MatchReturnAttributes;
 
 const mockMatchesInProgress = {
   id: 1,
@@ -65,7 +65,7 @@ const mockMatchesInProgress = {
   awayTeam: {
     teamName: 'Grêmio',
   },
-} as MatchReturnAtributes;
+} as MatchReturnAttributes;
 
 const mockMatchesLeaderboard = [{
   id: 1,
@@ -103,5 +103,5 @@ export default {
 };
 
 export {
-  MatchReturnAtributes,
+  MatchReturnAttributes,
 };

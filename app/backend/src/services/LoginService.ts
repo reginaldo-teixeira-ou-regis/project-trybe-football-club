@@ -9,6 +9,7 @@ export default class LoginService {
     if (!userExist) {
       return { message: 'Invalid email or password' };
     }
+
     const unlock = compareSync(password, userExist.password);
     if (!unlock) {
       return { message: 'Invalid email or password' };

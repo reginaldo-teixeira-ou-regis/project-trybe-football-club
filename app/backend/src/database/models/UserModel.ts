@@ -1,7 +1,7 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
 
-export interface UserAtributes {
+export interface UserAttributes {
   id: number,
   username: string,
   role: string,
@@ -9,7 +9,7 @@ export interface UserAtributes {
   password: string
 }
 
-class User extends Model<UserAtributes> {
+class User extends Model<UserAttributes> {
   declare id: number;
   declare username: string;
   declare role: string;
